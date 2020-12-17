@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="monthlyincome" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.2.0">
+  <decision id="Decision_1gg40x1" name="Allowed?">
+    <decisionTable id="DecisionTable_0kjqoe9">
+      <input id="Input_1" label="Studentstatus">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>Studentstatus</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1lwaibx" label="Income" biodi:width="192">
+        <inputExpression id="LiteralExpression_08cwqfw" typeRef="double">
+          <text>monthlyincome</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0breoig" label="Debt_Collection">
+        <inputExpression id="LiteralExpression_02hcjus" typeRef="string">
+          <text>debtcollection</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" name="decision" typeRef="string" biodi:width="192" />
+      <rule id="DecisionRule_140yerh">
+        <inputEntry id="UnaryTests_0c5wqoi">
+          <text>"yes"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0d2007i">
+          <text>&gt;=1500</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1298wiz">
+          <text>"yes"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_06zgw5x">
+          <text>"no"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_17lkk8m">
+        <inputEntry id="UnaryTests_1ep6h2f">
+          <text>"yes"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vf7xg2">
+          <text>&gt;=1500</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1831c3d">
+          <text>"no"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09bcl5o">
+          <text>"yes"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1m65jxi">
+        <inputEntry id="UnaryTests_1nw62jk">
+          <text>"yes"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1a94qkc">
+          <text>&lt;1500</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hh5kjz">
+          <text>"yes"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_15l2rrp">
+          <text>"no"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_057w7yg">
+        <inputEntry id="UnaryTests_1adl4mw">
+          <text>"yes"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1624d04">
+          <text>&lt;1500</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1r0hu35">
+          <text>"no"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0h1jq2c">
+          <text>"no"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0uobagx">
+        <inputEntry id="UnaryTests_1q8cjpd">
+          <text>"no"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1n9ff6r">
+          <text>&gt;=1500</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1v7pocd">
+          <text>"yes"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_03ncdo0">
+          <text>"no"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_15aezyj">
+        <inputEntry id="UnaryTests_0v5hitm">
+          <text>"no"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mzmh5i">
+          <text>&lt;1500</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xe0i2e">
+          <text>"yes"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_044y0ip">
+          <text>"no"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1204dwd">
+        <inputEntry id="UnaryTests_09vzz95">
+          <text>"no"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s9i9gn">
+          <text>&gt;=1500</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1avo3u9">
+          <text>"no"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0flyvxn">
+          <text>"no"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1fdp7c3">
+        <inputEntry id="UnaryTests_07klq2f">
+          <text>"no"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zc7xl5">
+          <text>&lt;1500</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fw8jtz">
+          <text>"no"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1oy0bc8">
+          <text>"no"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_1gg40x1">
+        <dc:Bounds height="80" width="180" x="160" y="40" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

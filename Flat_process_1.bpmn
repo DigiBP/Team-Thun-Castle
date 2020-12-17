@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0kwduqr" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.2.0">
+  <bpmn:signal id="Signal_1jye93a" name="Signal1" />
+  <bpmn:collaboration id="Collaboration_0u4xyfz">
+    <bpmn:participant id="Participant_0bdpyxk" name="Flat Ad Process" processRef="Prozess_Shareflat_1" />
+    <bpmn:participant id="Participant_1ebkbci" name="Customer" />
+    <bpmn:participant id="Participant_11dpjz7" name="Ad Platform" />
+    <bpmn:messageFlow id="Flow_10dcecw" sourceRef="Participant_1ebkbci" targetRef="Participant_0bdpyxk" />
+    <bpmn:messageFlow id="Flow_0i129ys" sourceRef="Activity_1xxkrzo" targetRef="Participant_11dpjz7" />
+    <bpmn:messageFlow id="Flow_0lo08ws" sourceRef="Activity_03ntuf3" targetRef="Participant_1ebkbci" />
+  </bpmn:collaboration>
+  <bpmn:process id="Prozess_Shareflat_1" name="Prozess_Shareflat_1" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Room free">
+      <bpmn:outgoing>Flow_0ym3uih</bpmn:outgoing>
+      <bpmn:signalEventDefinition id="SignalEventDefinition_1xoe42z" signalRef="Signal_1jye93a" />
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0vjjlo2" sourceRef="Activity_0echg4j" targetRef="Activity_1xxkrzo" />
+    <bpmn:sequenceFlow id="Flow_0gn0ljw" sourceRef="Activity_1u2pzwf" targetRef="Activity_0echg4j" />
+    <bpmn:sequenceFlow id="Flow_0ym3uih" sourceRef="StartEvent_1" targetRef="Event_0wkzfzg" />
+    <bpmn:sequenceFlow id="Flow_03u7wed" sourceRef="Activity_1xxkrzo" targetRef="Activity_03ntuf3" />
+    <bpmn:sequenceFlow id="Flow_1l1vft5" sourceRef="Activity_03ntuf3" targetRef="Event_176g3bv" />
+    <bpmn:serviceTask id="Activity_1u2pzwf" name="Get Information">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/qclrfnncnrm1a6qojovq3og2h9xnkdpb</camunda:inputParameter>
+            <camunda:outputParameter name="Wohnungsnummer">
+              <camunda:script scriptFormat="JavaScript">object=JSON.parse(response);
+Wohnungsnummer=object.Wohnungsnummer;</camunda:script>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="Strasse">
+              <camunda:script scriptFormat="JavaScript">object=JSON.parse(response);
+Strasse=object.Strasse;</camunda:script>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="Hausnummer">
+              <camunda:script scriptFormat="JavaScript">object=JSON.parse(response);
+Hausnummer=object.Hausnummer;</camunda:script>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="Postleitzahl">
+              <camunda:script scriptFormat="JavaScript">object=JSON.parse(response);
+Posteitzahl=object.Postleitzahl;</camunda:script>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="Ort">
+              <camunda:script scriptFormat="JavaScript">object=JSON.parse(response);
+Ort=object.Ort;</camunda:script>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="Zimmernummer">
+              <camunda:script scriptFormat="JavaScript">object=JSON.parse(response);
+Zimmernummer=object.Zimmernummer;</camunda:script>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="Verfuegbar">
+              <camunda:script scriptFormat="JavaScript">object=JSON.parse(response);
+Verfuegbar=object.Verfuegbar;</camunda:script>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="Wuensch">
+              <camunda:script scriptFormat="JavaScript">object=JSON.parse(response);
+Wuensch=object.Wuensch;</camunda:script>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="Email">
+              <camunda:script scriptFormat="JavaScript">object=JSON.parse(response);
+Email=object.Email;</camunda:script>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="Name">
+              <camunda:script scriptFormat="JavaScript">object=JSON.parse(response);
+Name=object.Name;</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_11fu65o</bpmn:incoming>
+      <bpmn:outgoing>Flow_0gn0ljw</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_03ntuf3" name="send Confirmation Mail">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/vv5wddtj9ath8wiqmyfm3kyjjnowdp99</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
+"Name":Name,
+"Email":Email
+});</camunda:script>
+            </camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_03u7wed</bpmn:incoming>
+      <bpmn:outgoing>Flow_1l1vft5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_176g3bv">
+      <bpmn:incoming>Flow_1l1vft5</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="Activity_0echg4j" name="Prepare Flat Ad">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="Wohnungsnummer" label="Flatnumber" type="string" />
+          <camunda:formField id="Strasse" label="Street" type="string" />
+          <camunda:formField id="Email" label="E-Mail" type="string" />
+          <camunda:formField id="Ort" label="Location" type="string" />
+          <camunda:formField id="Zimmernummer" label="Room Number" type="string" />
+          <camunda:formField id="Verfuegbar" label="Available From" type="string" />
+          <camunda:formField id="Wuensch" label="Wishes" type="string" />
+          <camunda:formField id="Name" label="Name" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0gn0ljw</bpmn:incoming>
+      <bpmn:outgoing>Flow_0vjjlo2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_1xxkrzo" name="Publish Flat Ad">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="PublishFlatAd" label="Flat Ad Published?" type="boolean" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0vjjlo2</bpmn:incoming>
+      <bpmn:outgoing>Flow_03u7wed</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_11fu65o" sourceRef="Event_0wkzfzg" targetRef="Activity_1u2pzwf" />
+    <bpmn:intermediateCatchEvent id="Event_0wkzfzg" name="Wait 5 Seconds">
+      <bpmn:incoming>Flow_0ym3uih</bpmn:incoming>
+      <bpmn:outgoing>Flow_11fu65o</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_13dgkoy">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT5S</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0u4xyfz">
+      <bpmndi:BPMNShape id="Participant_0bdpyxk_di" bpmnElement="Participant_0bdpyxk" isHorizontal="true">
+        <dc:Bounds x="129" y="240" width="970" height="250" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_11fu65o_di" bpmnElement="Flow_11fu65o">
+        <di:waypoint x="318" y="377" />
+        <di:waypoint x="400" y="377" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1l1vft5_di" bpmnElement="Flow_1l1vft5">
+        <di:waypoint x="980" y="377" />
+        <di:waypoint x="1042" y="377" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_03u7wed_di" bpmnElement="Flow_03u7wed">
+        <di:waypoint x="820" y="377" />
+        <di:waypoint x="880" y="377" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ym3uih_di" bpmnElement="Flow_0ym3uih">
+        <di:waypoint x="215" y="377" />
+        <di:waypoint x="282" y="377" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0gn0ljw_di" bpmnElement="Flow_0gn0ljw">
+        <di:waypoint x="500" y="377" />
+        <di:waypoint x="560" y="377" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vjjlo2_di" bpmnElement="Flow_0vjjlo2">
+        <di:waypoint x="660" y="377" />
+        <di:waypoint x="720" y="377" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_164ykol_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="359" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="171" y="402" width="52" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0bvne8g_di" bpmnElement="Activity_1u2pzwf">
+        <dc:Bounds x="400" y="337" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0z9fdr2_di" bpmnElement="Activity_03ntuf3">
+        <dc:Bounds x="880" y="337" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_176g3bv_di" bpmnElement="Event_176g3bv">
+        <dc:Bounds x="1042" y="359" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0lhyk2o_di" bpmnElement="Activity_0echg4j">
+        <dc:Bounds x="560" y="337" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1tprxml_di" bpmnElement="Activity_1xxkrzo">
+        <dc:Bounds x="720" y="337" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1aq2dds_di" bpmnElement="Event_0wkzfzg">
+        <dc:Bounds x="282" y="359" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="262" y="402" width="77" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_0oqobl5_di" bpmnElement="Participant_1ebkbci" isHorizontal="true">
+        <dc:Bounds x="129" y="550" width="970" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_16nywm5_di" bpmnElement="Participant_11dpjz7" isHorizontal="true">
+        <dc:Bounds x="129" y="80" width="970" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_10dcecw_di" bpmnElement="Flow_10dcecw">
+        <di:waypoint x="191" y="543" />
+        <di:waypoint x="191" y="490" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0i129ys_di" bpmnElement="Flow_0i129ys">
+        <di:waypoint x="770" y="337" />
+        <di:waypoint x="770" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0lo08ws_di" bpmnElement="Flow_0lo08ws">
+        <di:waypoint x="930" y="420" />
+        <di:waypoint x="930" y="550" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
